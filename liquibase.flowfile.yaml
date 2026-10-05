@@ -1,0 +1,30 @@
+globalVariables:
+  # GV_CHANGELOG: "Changelogs/DBATEST.xml"
+
+stages:
+  Status:
+    actions:
+    # - type: liquibase
+    #   command: validate
+
+    - type: liquibase
+      command: status
+
+
+    - type: liquibase
+      command: checks run
+      cmdArgs: { 
+        assignment-id: "512d61ff-2e19-4347-ad20-13df9b3beca6",
+        changeset-filter: "PENDING" }
+
+
+  Update:
+    actions:
+    - type: liquibase
+      # if: "${LBCOMMAND} == update"
+      command: update
+
+endStage:
+  actions:
+  - type: liquibase
+    command: history
